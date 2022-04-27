@@ -3,7 +3,7 @@
 
 There're two ways to modify the ai2thor simulator:
 
-* **(Recommend)** Download our modified ai2thor (version 2.4.0) from the link  [AI2THOR_Modified_Build](https://drive.google.com/file/d/1hJiUMw6bySBlIMS_PGQD25iu8j3Gq063/view?usp=sharing)
+* **(Recommend)** Download our modified ai2thor (version 2.4.0) from the link  [AI2THOR_Modified_Build](https://drive.google.com/file/d/1hJiUMw6bySBlIMS_PGQD25iu8j3Gq063/view?usp=sharing) and extract it under the `ION/buildDataset/` folder.
 
 * Install Unity Editor and edit from the source code of ai2thor (we use the version 2.4.0) and make the following changes. (This way is not guaranteed to succeed at the first try, since some unreasonable crash within Unity may happen)
 
@@ -13,7 +13,7 @@ There're two ways to modify the ai2thor simulator:
 
   * The details about how to edit the Unity Editor (updating...)
 
-### 2. Run the script to generate our ION dataset (offline)!
+### 2. Run the script to generate our offline ION dataset!
 
 ```bash
 cd ION/buildDataset
