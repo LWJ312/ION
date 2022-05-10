@@ -23,15 +23,13 @@ conda activate objnav
 pip install -r requirements.txt
 ```
 
-3. Prepare the **ION datase**t. (There are two ways to get the dataset)
+3. Prepare the **ION datase**t. 
 
-   * Download from the link [ION_dataset(uploading)](), and extract into the ION_dataset folder. Note that the whole dataset is offline sampled, including 600 rooms. The whole dataset is about **120 G.**
-   * Generate the dataset using the provided scipt.  Please see`ION/buildDataset/README.md`.
-
-   The right ION_dataset folder should look like:
+   * Download from the link [ION_dataset (~63G) ](http://123.57.42.89/Dataset_ION/ION_dataset.zip), and extract into the `ION/ION_dataset` folder. Note that the whole dataset is offline sampled, including 600 rooms. The whole decompressed dataset is about **140 G.**
+   * The right ION_dataset folder should look like:
 
    ```
-     ION_dataset/ 
+    ION_dataset/ 
        └── FloorPlan1-1/
        │   ├── TopView.jpg
        │   ├── allObject.json
@@ -62,7 +60,7 @@ pip install -r requirements.txt
 * Base model
 
 ```bash
-python main.py --title Basemodel --model BaseModel --workers 12 --gpu-ids 0
+python main.py --title BaseModel --model BaseModel --workers 12 --gpu-ids 0
 ```
 
 * IRG model

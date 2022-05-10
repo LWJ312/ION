@@ -350,7 +350,7 @@ def parse_arguments():
     parser.add_argument(
         '--data-dir',
         type=str,
-        default='./ION_dataset/MMtest', #/data1/MMdata#
+        default='./ION_dataset', #/data1/MMdata#
         help='where dataset is stored.',
     )
 

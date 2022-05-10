@@ -246,6 +246,8 @@ def end_episode(
 ):
     results = {
         'done_count': player.episode.done_count,
+        'ep_length': player.eps_len,
+        'success': int(player.success),
         'tools': {
             'scene': player.episode.scene,
             'target': player.episode.task_data,

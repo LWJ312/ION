@@ -10,9 +10,11 @@ import torchvision
 import torch.nn as nn
 from constants import * 
 
+# requires AI2thor version >= 2.4.0
+
 def controller_init_(scene_name='FloorPlan1'):
     build_path = os.path.join(project_path, "buildDataset/AI2THOR_Modified_Build/build.x86_64")
-    c = Controller(local_executable_path=build_path,scene=scene_name)
+    c = Controller(local_executable_path=build_path, scene=scene_name)
     c.step(dict(action='Initialize', gridSize=0.25, degrees=45))
     return c
 
@@ -66,11 +68,11 @@ def diyObjsFromScene(scene, init_ObjTypes, seed):
 
         candidate_RepObjTypes = list(set(init_ObjTypes).intersection(set(OBJ_TO_RECEP[objType])))
         candidate_RepObjTypes.sort()
-        # thoughts for bathroom 
         if scene_id % 100 <= 20:
-            copy_times = min(len(candidate_RepObjTypes), NUM_MAX_SPAWNTIMES_TRAIN[len(candidate_RepObjTypes)>1])
+            copy_times =  NUM_MAX_SPAWNTIMES_TRAIN[len(candidate_RepObjTypes)>1]
         else:
-            copy_times = min(len(candidate_RepObjTypes), NUM_MAX_SPAWNTIMES_TEST[len(candidate_RepObjTypes)>1])
+            copy_times = NUM_MAX_SPAWNTIMES_TEST[len(candidate_RepObjTypes)>1]
+
         for count in range(copy_times):
             rep = random.choices(candidate_RepObjTypes)[0]
             repType.append(rep)
@@ -126,9 +128,11 @@ def sample_one_scene(scene, randomSeed):
                 renderObjectImage=True,
                 renderClassSegmentation=True))
         save_dir = scene_dir + '-'+ str(sub)
-        print('---Sampling {}'.format(save_dir))
         if not os.path.exists(save_dir):
             os.makedirs(save_dir)
+        elif len(os.listdir(save_dir)) == 11:
+            continue
+        print('---Sampling {}'.format(save_dir))
         # diy scene
         objsToSpawn_recep, objsToSpawn_others = diyObjsFromScene(scene, initObjTypes, randomSeed+sub)
         # specificSpawn.json
@@ -191,20 +195,21 @@ if __name__ == '__main__':
     if not os.path.exists(dataset_dir):
         os.mkdir(dataset_dir)
 
-    # scenes=getAllScenes()[:30]
-    scenes= ['FloorPlan401']
+    scenes=getAllScenes()
+    # scenes= ['FloorPlan1', 'FloorPlan201', 'FloorPlan301', 'FloorPlan401']
+    # scenes = ['FloorPlan201']
     
-    # pool = Pool(processes=2)
-    # for i, scene in enumerate(scenes):
-    #     id = int(scene.split('FloorPlan')[-1])
-    #     pool.apply_async(func=sample_one_scene, args=(scene, randomSeed+num_sub_scenes*(id-1)))
+    pool = Pool(processes=4)
+    for i, scene in enumerate(scenes):
+        id = int(scene.split('FloorPlan')[-1])
+        pool.apply_async(func=sample_one_scene, args=(scene, randomSeed+num_sub_scenes*(id-1)))
 
-    # pool.close()
-    # pool.join()
+    pool.close()
+    pool.join()
 
 
-    id = int(scenes[0].split('FloorPlan')[-1])
-    sample_one_scene(scenes[0], randomSeed+num_sub_scenes*(id-1))
+    # id = int(scenes[0].split('FloorPlan')[-1])
+    # sample_one_scene(scenes[0], randomSeed+num_sub_scenes*(id-1))
         
         
         

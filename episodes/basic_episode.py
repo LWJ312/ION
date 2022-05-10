@@ -240,6 +240,7 @@ class BasicEpisode(Episode):
         self._env.randomize_agent_location()
 
         self.task_data = []
+        self.task_data_cls = []
 
         objects = self._env.all_objects()
 
@@ -267,6 +268,8 @@ class BasicEpisode(Episode):
                 first = MODIFY_OBJS[first]
             if last in MODIFY_OBJS.keys():
                 last = MODIFY_OBJS[last]
+            if (task[0]==first):
+                self.task_data_cls.append(id_)
             if (task[0]==first) and (task[1]==id_.split("|")[1]) and \
                     (task[2]==id_.split("|")[2]) and(task[3]==id_.split("|")[3]) and (task[4]==last):
                 self.task_data.append(id_)

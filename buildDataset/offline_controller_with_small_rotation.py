@@ -544,7 +544,7 @@ class OfflineControllerWithSmallRotation(BaseController):
             detection_feature_file_name='detect_att.hdf5',
             grid_file_name='grid.json',
             graph_file_name='graph.json',
-            metadata_file_name='visible_object_map.json',
+            metadata_file_name='ins_visible_location_bbox.json',
             images_file_name='resnet18_featuremap.hdf5',
             depth_file_name='depth.hdf5',
             debug_mode=True,

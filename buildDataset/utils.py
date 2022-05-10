@@ -2,7 +2,12 @@ import colorsys
 import numpy as np
 import cv2
 import random
-from .constants import *
+if __package__ is None or __package__ == '':
+    # uses current directory visibility
+    from constants import IN_RELATION_OBJS
+else:
+    # uses current package visibility
+    from .constants import IN_RELATION_OBJS
 
 COLOR_ATT = ['black', 'gray', 'white', 'red', 'orange', 'yellow', 'green', 'cyan', 'blue', 'purple']
 
